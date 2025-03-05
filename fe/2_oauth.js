@@ -107,20 +107,22 @@ function refreshAuthToken() {
  * This function sends an AJAX DELETE request to the logout endpoint with the current access token.
  */
 function logout() {
-    // Clear all cookies on the client side
-    clearAllCookie();
 
+    // tokenObj = token();
     // Send a DELETE request to the logout API endpoint to revoke the token
     $.ajax({
         type: "delete",
-        url: DOMAIN_API + "/api/logout",
+        url: DOMAIN_API + "api/logout",
         headers: {
             // Use the access token retrieved from the token() function
-            "Authorization": "Bearer " + tokenObj.access
+            "Authorization": "Bearer " + tokenObj.access_token    
         },
         success: function (response) {
             console.log(response);
+            $("h1").html("successfully logged out");
         },
         // Optionally, you can handle errors here as well
     });
+    // Clear all cookies on the client side
+    clearAllCookie();
 }
