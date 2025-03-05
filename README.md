@@ -105,22 +105,22 @@ This project demonstrates how to set up a Laravel 12 application with Laravel Pa
 ### Laravel Passport & Application Configuration
 
 #### **Update AppServiceProvider**
-In your `AppServiceProvider.php` within the boot method, add:
-```
-use Laravel\Passport\Passport;
+   In your `AppServiceProvider.php` within the boot method, add:
+   ```
+   use Laravel\Passport\Passport;
 
-public function boot()
-{
-   Passport::hashClientSecrets();
+   public function boot()
+   {
+      Passport::hashClientSecrets();
 
-   // Set token expiration times using values from the .env file.
-   Passport::tokensExpireIn(now()->addMinutes((int) env("PASSPORT_ACCESS", 1)));
-   Passport::refreshTokensExpireIn(now()->addMinutes((int) env("PASSPORT_REFRESH", 3)));
-   Passport::personalAccessTokensExpireIn(now()->addMonths(6));
-}
-```
+      // Set token expiration times using values from the .env file.
+      Passport::tokensExpireIn(now()->addMinutes((int) env("PASSPORT_ACCESS", 1)));
+      Passport::refreshTokensExpireIn(now()->addMinutes((int) env("PASSPORT_REFRESH", 3)));
+      Passport::personalAccessTokensExpireIn(now()->addMonths(6));
+   }
+   ```
 #### **CORS Settings**
- Ensure that your `config/cors.php` file allows cross-origin requests between `http://laravel.org` and `http://fe.org`.
+   Ensure that your `config/cors.php` file allows cross-origin requests between `http://laravel.org` and `http://fe.org`.
 
 ## How the Routes Work
 
