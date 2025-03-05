@@ -18,22 +18,24 @@ This project demonstrates how to set up a Laravel 12 application with Laravel Pa
 - PHP and Composer installed.
 - Basic knowledge of Laravel and web development.
 
-## Steps to Install Laravel Passport
+### Steps to Install Laravel Passport
 
 1. **Clone the Repository:**
-   ```bash
+   ```
    git clone <repository-url>
    cd <repository-directory>
+   ```
 
 2. **Install Dependencies:**
-   ```bash
+   ```
     composer install
     npm install
     npm run dev
+   ```
 
 3. **Configure Environment Variables:**
-   Open the <mark>.env</mark> file and update these settings
-   ```bash
+   Open the `.env` file and update these settings
+   ```
         APP_URL=http://laravel.org
         SESSION_DRIVER=database
         SESSION_LIFETIME=1
@@ -44,29 +46,33 @@ This project demonstrates how to set up a Laravel 12 application with Laravel Pa
 
         PASSPORT_ACCESS=1
         PASSPORT_REFRESH=3
+   ```
 
 4. **Generate the Application Key:**
-   ```bash
+   ```
         php artisan key:generate
+   ```
 
 5. **Run Database Migrations:**
-   ```bash
+   ```
         php artisan migrate
+   ```
 
 6. **Install Laravel Passport (Public Client):**
-   ```bash
+   ```
         php artisan passport:install --client=public
+   ```
 
-## Nginx Virtual Host Setup
+### Nginx Virtual Host Setup
    Create a virtual host file for 
-    · Backend <mark>laravel.org</mark>:
-    · Frontend <mark>fe.org</mark>:
+    - Backend `laravel.org`:
+    - Frontend `fe.org`:
 
-## Laravel Passport & Application Configuration
+### Laravel Passport & Application Configuration
 
-    **Update AppServiceProvider**
-    In your <mark>AppServiceProvider.php</mark> within the boot method, add:
-   ```bash
+#### **Update AppServiceProvider**
+    In your `AppServiceProvider.php` within the boot method, add:
+   ```
         use Laravel\Passport\Passport;
 
         public function boot()
@@ -78,50 +84,50 @@ This project demonstrates how to set up a Laravel 12 application with Laravel Pa
             Passport::refreshTokensExpireIn(now()->addMinutes((int) env("PASSPORT_REFRESH", 3)));
             Passport::personalAccessTokensExpireIn(now()->addMonths(6));
         }
-    
-    **CORS Settings**
-    Ensure that your <mark>config/cors.php</mark> file allows cross-origin requests between <mark>http://laravel.org</mark> and <mark>http://fe.org</mark>.
+   ```
+#### **CORS Settings**
+    Ensure that your `config/cors.php` file allows cross-origin requests between `http://laravel.org` and `http://fe.org`.
 
 ## How the Routes Work
 
-    **Web Routes (Frontend Interaction)**
-   · <mark>/login</mark>: Displays the login form.
-   · <mark>/submit</mark>: Processes the login form and validates user credentials.
-   · <mark>/redirect</mark>: Forces users to log in if they are not authenticated.
-   · <mark>/callback-action</mark>: Receives the authorization code and state from Laravel, then sends these to the frontend.
-   · <mark>/callback</mark>: Redirects the user back to the frontend with their token details.
+   **Web Routes (Frontend Interaction)**
+   - `/login`: Displays the login form.
+   - `/submit`: Processes the login form and validates user credentials.
+   - `/redirect`: Forces users to log in if they are not authenticated.
+   - `/callback-action`: Receives the authorization code and state from Laravel, then sends these to the frontend.
+   - `/callback`: Redirects the user back to the frontend with their token details.
 
-    **API Routes (Token and User Management)**
-   · <mark>/api/user</mark>: Returns the authenticated user’s data.
-   · <mark>/api/refresh</mark>: Refreshes the access token.
-   · <mark>/api/logout</mark>: Revokes the user’s token, logging them out.
+   **API Routes (Token and User Management)**
+   - `/api/user`: Returns the authenticated user’s data.
+   - `/api/refresh`: Refreshes the access token.
+   - `/api/logout`: Revokes the user’s token, logging them out.
 
 ## How the Frontend Works
 
-    **The frontend (using simple JavaScript) should:**
+   **The frontend (using simple JavaScript) should:**
 
    1. Callback Page:
-   · If it receives a <mark>state</mark> and <mark>code</mark>, send them to <mark>/callback-action</mark>.
-   · If it receives token details (like an access token), store them (e.g., in cookies) and redirect to the main page.
+   - If it receives a `state` and `code`, send them to `/callback-action`.
+   - If it receives token details (like an access token), store them (e.g., in cookies) and redirect to the main page.
 
    2. Index Page:
    Check if a token exists.
-   · If there is a token, make a request to <mark>/api/user</mark> to get user information.
-   · If the token is valid, display the access token (for example, in an <mark>H1</mark> element).
-   · If no valid token is found, redirect the user to the login page.
-   · Include a logout button to clear the token from both the client and the server.
+   - If there is a token, make a request to `/api/user` to get user information.
+   - If the token is valid, display the access token (for example, in an `H1` element).
+   - If no valid token is found, redirect the user to the login page.
+   - Include a logout button to clear the token from both the client and the server.
 
 ## Error Handling
 
-   · Network Errors: If a network error occurs, the page will reload.
-   · 401 Unauthorized Errors: If a 401 error occurs, the application will try to refresh the token by calling <mark>/api/refresh</mark>. If refreshing fails, an alert will be shown.
-   · Other Errors: For all other errors, a relevant error message will be displayed via an alert.
+   - Network Errors: If a network error occurs, the page will reload.
+   - 401 Unauthorized Errors: If a 401 error occurs, the application will try to refresh the token by calling `/api/refresh`. If refreshing fails, an alert will be shown.
+   - Other Errors: For all other errors, a relevant error message will be displayed via an alert.
 
 ## Final Notes
-   · This project uses a public client configuration with Laravel Passport.
-   · The system is designed for separate domains (backend and frontend).
-   · Always use HTTPS in production to secure token transmission.
-   · Refer to the Laravel and Passport documentation for more details if needed.
+   - This project uses a public client configuration with Laravel Passport.
+   - The system is designed for separate domains (backend and frontend).
+   - Always use HTTPS in production to secure token transmission.
+   - Refer to the Laravel and Passport documentation for more details if needed.
 
 ## License
 This project is licensed under the MIT License.
