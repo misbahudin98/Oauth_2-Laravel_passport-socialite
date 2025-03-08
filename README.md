@@ -18,17 +18,18 @@ This project demonstrates how to set up a Laravel 12 application with Laravel Pa
 - PHP and Composer installed.
 - Basic knowledge of Laravel and web development.
 
-### Steps to Install Laravel Passport
+### Steps to Configure Laravel Passport
 
 1. **Clone the Repository:**
    ```
-   git clone <repository-url>
-   cd <repository-directory>
+      git clone <repository-url>
+      cd <repository-directory>
    ```
+   put the project into the local webserver directory (laragon/www/ or similar) with the names `fe` and `laravel`
 
-2. **Install laravel:**
+2. **Install depedency:**
    ```
-      composer create-project laravel/laravel laravel   
+      composer install
    ```
 
 3. **Configure Environment Variables:**
@@ -162,6 +163,52 @@ This project demonstrates how to set up a Laravel 12 application with Laravel Pa
    - The system is designed for separate domains (backend and frontend).
    - Always use HTTPS in production to secure token transmission.
    - Refer to the Laravel and Passport documentation for more details if needed.
+
+# Laravel Socialite Authenctication (addition)
+
+## Role of Socialite
+   1. **Integration Tool**:
+   Socialite serves as a tool to integrate external platform APIs with your internal server.
+
+   2. **Complementing Laravel Passport**:
+   Even though many OAuth 2.0 flows are already supported by the provider platforms, this project still utilizes Laravel Passport to manage the OAuth 2.0 flow internally.
+
+## Prerequisites
+   1. **API Developer Credentials**:
+   Obtain developer API credentials for the account you wish to use for authentication.
+
+   2. **Registered Callback Page**:
+   Ensure that the callback page (redirect URI) is registered in your provider’s account settings.
+
+## Steps to Configure Laravel Socialite
+
+1. **Application Credentials**
+   Add the credentials obtained from the platform 
+   (e.g., from console.cloud.google.com) in your `.env` file:
+   ```
+   GOOGLE_CLIENT_ID=id_from_platform
+   GOOGLE_CLIENT_SECRET=secret_from_platform    
+   GOOGLE_REDIRECT_URI=http://laravel.org/google/callback
+   ```
+2. **Service Configuration**
+   Define the login behavior and the expected output after a successful login in your `config/services.php` file.
+3. **Redirect**
+   Sometimes, you may need to use the `with()` clause before redirecting to the platform's login page. For example, with Google, you might add `select_account` to force the user to choose an account and re-login.
+
+4. **Callback**
+   Set up the callback behavior to handle authentication. For instance, once you receive the user’s email details, perform a check to ensure the user is registered in your system.
+
+##  Potential Future Enhancements
+   -**PKCE with OTP Integration**:
+      Implement PKCE along with an OTP mechanism, where after generating the authorization code, the user receives an OTP through a messaging app for additional verification.
+
+   -**Dynamic Callback Pages**:
+      Define callback pages based on the client ID so that the callback page can be more dynamic and cater to multiple clients.
+
+   -**Direct Management by the Provider**:
+      Explore possibilities where some aspects of management are handled directly by the provider platform.
+
+ 
 
 ## License
 This project is licensed under the MIT License.
