@@ -29,6 +29,7 @@ class AppServiceProvider extends ServiceProvider
     {
 
         Passport::hashClientSecrets();
+
         // PASSPORT_REFRESH
         //         PASSPORT_ACCESS=1
         // PASSPORT_REFRESH=3
