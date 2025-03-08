@@ -199,13 +199,13 @@ This project demonstrates how to set up a Laravel 12 application with Laravel Pa
    Set up the callback behavior to handle authentication. For instance, once you receive the user’s email details, perform a check to ensure the user is registered in your system.
 
 ##  Potential Future Enhancements
-   -**PKCE with OTP Integration**:
+   - **PKCE with OTP Integration**:
       Implement PKCE along with an OTP mechanism, where after generating the authorization code, the user receives an OTP through a messaging app for additional verification.
 
-   -**Dynamic Callback Pages**:
+   - **Dynamic Callback Pages**:
       Define callback pages based on the client ID so that the callback page can be more dynamic and cater to multiple clients.
 
-   -**Direct Management by the Provider**:
+   - **Direct Management by the Provider**:
       Explore possibilities where some aspects of management are handled directly by the provider platform.
 
  
