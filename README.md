@@ -119,7 +119,6 @@
          Passport::refreshTokensExpireIn(now()->addMinutes((int) env("PASSPORT_REFRESH", 3)));
          Passport::personalAccessTokensExpireIn(now()->addMonths(6));
       }
-
       ```
    #### **CORS Settings**
       Ensure that your `config/cors.php` file allows cross-origin requests between `http://laravel.org` and `http://fe.org`.
