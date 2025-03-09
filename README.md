@@ -291,5 +291,6 @@
                      Figure 3: Authorization Code Flow
 ```
 
+
    ## License
    This project is licensed under the MIT License.
